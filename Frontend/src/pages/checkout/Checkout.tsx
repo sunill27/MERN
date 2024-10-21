@@ -45,7 +45,7 @@ const Checkout = () => {
       [name]: value,
     });
   };
-  let subtotal = items.reduce(
+  let subTotal = items.reduce(
     (total, item) => item.Product.productPrice * item.quantity + total,
     0
   );
@@ -62,11 +62,11 @@ const Checkout = () => {
     const orderData = {
       ...data,
       items: itemDetails,
-      totalAmount: subtotal,
+      totalAmount: subTotal,
     };
     await dispatch(orderItem(orderData));
-    if (status === Status.SUCCESS) {
-      alert("Order Placed successfully");
+    if (khaltiUrl) {
+      window.location.href = khaltiUrl;
     }
   };
 
@@ -98,7 +98,7 @@ const Checkout = () => {
               items.map((item) => {
                 return (
                   <div
-                    key={item?.Product?.id}
+                    key={item?.productId}
                     className="flex flex-col rounded-lg bg-white sm:flex-row"
                   >
                     <img
@@ -229,7 +229,7 @@ const Checkout = () => {
               <div className="mt-6 border-t border-b py-2">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium text-gray-900">Subtotal</p>
-                  <p className="font-semibold text-gray-900">Rs {subtotal}</p>
+                  <p className="font-semibold text-gray-900">Rs {subTotal}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium text-gray-900">Shipping</p>
@@ -239,7 +239,7 @@ const Checkout = () => {
               <div className="mt-6 flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-900">Total</p>
                 <p className="text-2xl font-semibold text-gray-900">
-                  Rs {subtotal + 100}
+                  Rs {subTotal + 100}
                 </p>
               </div>
             </div>
